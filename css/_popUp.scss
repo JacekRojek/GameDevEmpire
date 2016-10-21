@@ -1,0 +1,56 @@
+@import 'variables';
+@import 'mixins';
+
+div.popUp{
+  border: 3px solid darken($primary, 10%);
+  background-color: lighten($primary, 15%);
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  margin-top: 0px;
+  margin-left: 0px;
+  width: 60%;
+  height: auto;
+  z-index: 5;
+  @media screen and (max-width: 500px) {
+  left: 10%;
+  width: 80%;
+  }
+  img{
+    float: left;
+    max-width: 150px;
+    max-height: 150px;
+    padding: 20px;
+  }
+  form{
+    font-size: 1.5em;
+    text-align: center;
+    margin-top: 30px;
+    padding-bottom: 10px;
+    input[type="submit"]{
+      box-shadow: 0 3px 0 0 $shadow;
+      background-color:$primary;
+      border: 0px;
+      border-radius: 5px;
+      //min-width: 50px;
+      font-size: 1.2em;
+      &:hover {
+          background: lighten($primary-complementary, 10%);
+      }
+      &:active {
+        background: darken($primary-complementary, 10%);
+        box-shadow: none;
+        margin-bottom: -3px;
+        margin-top: $margin-button + 3px;
+      }
+    }
+    input[type="text"]{
+      background: lighten($primary-complementary, 10%);
+    }
+  }
+@include animation('move-the-object .5s 1', 'move-the-object-again .5s 1 .5s');
+  @include keyframes(move-the-object) {
+0%   { top: 0px; }
+100% { top: 20%; }
+}
+}

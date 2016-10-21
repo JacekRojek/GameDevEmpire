@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC|Permanent+Marker|VT323');
+@import 'variables';
+@import 'mixins';
+@import 'profile';
+@import 'popUp';
+@import 'buttons';
+
+
+// Styles
+body {
+  #achievements-popUp{
+    display: none;
+    i{
+    font-size: 6em;
+    float: left;
+    padding: 10px;
+  }
+  }
+  #gh-fork{
+    position: absolute;
+    float: right;
+    right: 0px;
+    height: 150px;
+    &:hover{
+    cursor: pointer;
+  }
+  @media screen and (max-width: 500px) {
+    height: 100px;
+  }
+  }
+
+  .info-top{
+    background: darken($font-colour, 5%);
+    color: $background;
+    h4{
+      margin: 0px;
+    }
+  }
+  > .container{
+    border: 3px solid darken($primary, 10%);
+    background: lighten($background, 5%);
+  }
+  font-family: $pixelated;
+  color: $font-colour;
+  background-color: $background;
+    //font-weight: normal;
+}
+
+
+  ul {
+  list-style-type: none;
+  }
+
+#shop{
+    i{
+      background-color: lighten($secondary, 5%);
+      border: 3px solid darken($primary, 15%);
+      &:hover{
+        background-color: darken($secondary, 5%);
+        cursor: pointer;
+      }
+    }
+}
+
+.box{
+  i{
+    min-width: 60px;
+    border: 1px solid lighten($secondary, 5%);
+    border-radius: 2px;
+    margin: 3px;
+    background-color: lighten($primary, 10%);
+    font-size: 3em;
+    padding:10px;
+    display: inline-flex;
+
+  }
+}
+
+ .tooltiptext {
+    visibility: hidden;
+    width: 100px;
+    background-color: lighten($primary, 10%);
+    color: $font-colour;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top:110px;
+
+    margin-left: -100px;
+}

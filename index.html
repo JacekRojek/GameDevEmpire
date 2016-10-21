@@ -1,0 +1,190 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GameDev Empire Online</title>
+  <meta name="description" content="Build your own games development empire in your browser. Idle Game built in JavaScript ES6" />
+
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" value="Build your own games development empire in your browser. Idle Game built in JavaScript ES6">
+
+  <!-- Open Graph data -->
+  <meta property="og:title" content="GameDem Empire" />
+  <meta property="og:type" content="web game" />
+  <meta property="og:url" content="http://www.example.com/" />
+  <meta property="og:image" content="http://example.com/image.jpg" />
+  <meta property="og:description" content="Build your own games development empire in your browser. Idle Game built in JavaScript ES6" />
+  <title>GameDev Empire</title>
+  <meta name="description" content="GameDev Empire">
+  <meta name="author" content="IndieDevArt">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap theme -->
+
+  <!-- SASS  -->
+  <link rel="stylesheet" href="css/style.min.css?v=1.0">
+
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <a href="https://github.com/JacekRojek" target="_blank" ><img id="gh-fork" class="img-responsive" src="assets\gh-fork.png" alt="Fork me on GitHub" /></a>
+  <div class="info-top text-center">
+    <h4>
+       GameDev Empire <i>- Developed by IndieDevArt</i>
+    </h4>
+  </div>
+  <div class="container">
+
+<div class="container popUp" id="welcome">
+  <img class="img-responsive" src="assets\gamedev.png" alt="logo" />
+  <h2>GameDev Empire</h2>
+  <p>Build your own Games Development Empire. LevelUp your skills to create best indie games. Upgrade your office to become more efficiet.
+     Withh enought money hire team of specialists to improve the quality of your games.
+     Manage your own game company and try to create a million-selling game in this unique simulation.
+     Unlock variety of skills and build up the reputation.
+  </p>
+  <form method="post">
+  Enter your Name <input type="text" name="name" id="name">
+  <input  type="submit" value="Start" >
+</form>
+</div>
+        <!-- Profile -->
+        <div id="profile" class="row">
+            <!-- Profile Picture -->
+          <div class="col-lg-2 col-lg-offset-2 col-sm-3 col-xs-4">
+              <img class="img-responsive" src="assets\Octocat.png" alt="Profile Picture" />
+
+              <!-- informations -->
+              <h2 id="playerName"></h2>
+              <ul id="stats">
+                <li><h4><i class="fa fa-arrow-up"></i> Level <span id="level_span" data-amount="1">1</span></h4></li>
+                <li><h4> <i class="fa fa-dollar"> </i> Money <span id="money_span" data-amount="100">100</span></h4></li>
+                <li><h4><i class="fa fa-heart-o"></i> Reputation <span id="reputation_span" data-amount="0">0</span></h4></li>
+              </ul>
+
+
+          </div>
+            <!-- stats -->
+          <div class="col-lg-8 col-sm-9 col-xs-8">
+             <ul id="skills"><h1>Skills</h1>
+               <li><i class="fa fa-code"></i>
+                 <div class="progress">Coding
+                     <div id="coding" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+
+                     </div>
+                   </div>
+               </li>
+               <li><i class="fa fa-paint-brush"></i>
+                 <div class="progress">Art
+                     <div id="art" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+
+                     </div>
+                   </div>
+               </li>
+               <li><i class="fa fa-music"></i>
+                 <div class="progress">Music
+                     <div id="music" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+
+                     </div>
+                   </div>
+               </li>
+               <li><i class="fa fa-eye"></i>
+                 <div class="progress">Design
+                     <div id="design" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+
+                     </div>
+                   </div>
+               </li>
+             </ul>
+             <div class="progress">Experience
+                 <div id="experience_bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+
+                 </div>
+               </div>
+          </div>
+        </div>
+        <!-- Buttons  -->
+      <div class="col-lg-4 col-lg-offset-2 col-sm-6 col-xs-12">
+        <h2 id="main" class="text-center" >Tasks</h2>
+        <ul id="buttons">
+          <li><button type="button" class="btn btn-outline-info selector" name="button"><div></div><i class="fa fa-book"></i> Read a book</button>
+              <ul class="options">
+                <li><p>Not enogh <br> money</p><span class="tooltiptext">cost:20$ , exp:20</span><button type="button" data-time="3" data-experience="20" data-type="design" data-price="20" data-income="0" class="btn btn-outline-info" name="button"><i class="fa fa-eye"></i> Game Design</button></li>
+                <li><p>Not enogh <br> money</p><span class="tooltiptext">cost:20$ , exp:20</span><button type="button" data-time="4" data-experience="20" data-type="coding" data-price="20" data-income="0" class="btn btn-outline-info" name="button"><i class="fa fa-code"></i> Coding</button></li>
+                <li><p>Not enogh <br> money</p><span class="tooltiptext">cost:20$ , exp:30</span><button type="button" data-time="5" data-experience="30" data-type="art" data-price="20" data-income="0" class="btn btn-outline-info" name="button"><i class="fa fa-paint-brush"></i> Art</button></li>
+                <li><p>Not enogh <br> money</p><span class="tooltiptext">cost:20$ , exp:30</span><button type="button" data-time="8" data-experience="30" data-type="music" data-price="20" data-income="0" class="btn btn-outline-info" name="button"><i class="fa fa-music"></i> Music</button></li>
+              </ul>
+          </li>
+          <li><button type="button" class="btn btn-outline-info selector" name="button"><div></div><i class="fa fa-gamepad"></i> Play Games</button>
+            <ul class="options">
+              <li><p>Not enogh <br> money</p><span class="tooltiptext">cost:30$ , exp:20</span> <button type="button" data-time="5"  data-experience="20" data-type="coding" data-price="30" data-income="0" class="btn btn-outline-info" name="button"><i class="fa fa-male"></i> RPG</button></li>
+              <li><p>Not enogh <br> money</p><span class="tooltiptext">cost:20$ , exp:20</span> <button type="button" data-time="5"  data-experience="20" data-type="coding" data-price="20" data-income="0" class="btn btn-outline-info" name="button"><i class="fa fa-sliders"></i> Strategy</button></li>
+              <li><p>Not enogh <br> money</p><span class="tooltiptext">cost:50$ , exp:20</span> <button type="button" data-time="5"  data-experience="20" data-type="coding" data-price="50" data-income="0" class="btn btn-outline-info"name="button"><i class="fa fa-street-view"></i> Action</button></li>
+              <li><p>Not enogh <br> money</p><span class="tooltiptext">cost:70$ , exp:20</span> <button type="button" data-time="5"  data-experience="20" data-type="coding" data-price="70" data-income="0" class="btn btn-outline-info"name="button"><i class="fa fa-music"></i> Music</button></li>
+            </ul></li>
+          <li><button type="button" class="btn btn-outline-info selector" name="button"><div></div><i class="fa fa-coffee"></i> Practice</button>
+            <ul class="options">
+              <li><span class="tooltiptext">time:10 , exp:10</span> <button type="button"  data-time="10" data-experience="10" data-type="coding"  data-income="0" class="btn btn-outline-info"name="button"><i class="fa fa-code"></i> Write Code</button></li>
+              <li><span class="tooltiptext">time:20 , exp:20</span> <button type="button " data-time="20" data-experience="20" data-type="music"  data-income="0" class="btn btn-outline-info" name="button"><i class="fa fa-music"></i> Create Music</button></li>
+              <li><span class="tooltiptext">time:5 , exp:50</span> <button type="button " data-time="5" data-experience="5" data-type="art"  data-income="0" class="btn btn-outline-info" name="button"><i class="fa fa-paint-brush"></i> Create Art</button></li>
+            </ul></li>
+          <li><button type="button" class="btn btn-outline-info selector" name="button"><div></div><i class="fa fa-automobile"></i> Work</button>
+            <ul class="options">
+              <li><span class="tooltiptext">income:100$ , exp:0</span> <button type="button " data-time="20" data-experience="0" data-type="coding"  data-income="100" class="btn btn-outline-info" name="button"><i class="fa fa-building"></i> Warehouse</button></li>
+              <li><span class="tooltiptext">income:40$ , exp:20</span> <button type="button " data-time="10" data-experience="20" data-type="coding"  data-income="40" class="btn btn-outline-info" name="button"><i class="fa fa-internet-explorer"></i> Freelancing</button></li>
+              <li><span class="tooltiptext">income:500$ , exp:200</span> <button type="button " data-time="40" data-experience="200" data-type="coding"  data-income="500" class="btn btn-outline-info" name="button"><i class="fa fa-code"></i> Developer</button></li>
+              <li><span class="tooltiptext">income:50$ , exp:20</span> <button type="button " data-time="7" data-experience="20" data-type="music"  data-income="50" class="btn btn-outline-info" name="button"><i class="fa fa-music"></i> Musician</button></li>
+              <li><span class="tooltiptext">income:20$ , exp:20</span> <button type="button " data-time="4" data-experience="20" data-type="design"  data-income="20" class="btn btn-outline-info" name="button"><i class="fa fa-paint-brush"></i> Designer</button></li>
+            </ul></li>
+            <li><button type="button" class="btn btn-outline-info selector" name="button"><div></div><i class="fa fa-users"></i> Promote </button>
+              <ul class="options">
+                <li><span class="tooltiptext">income:0$ , exp:20</span> <button type="button " data-time="20" data-experience="20" data-type="coding"  data-income="0" data-reputation="10" class="btn btn-outline-info" name="button"><i class="fa fa-facebook-official"></i> Facebook</button></li>
+                <li><span class="tooltiptext">income:10$ , exp:10</span> <button type="button " data-time="10" data-experience="10" data-type="coding"  data-income="10" data-reputation="20" class="btn btn-outline-info" name="button"><i class="fa fa-soundcloud"></i> SoundCloud</button></li>
+                <li><span class="tooltiptext">income:0$ , exp:200</span> <button type="button " data-time="40" data-experience="200" data-type="coding"  data-income="0" data-reputation="30" class="btn btn-outline-info" name="button"><i class="fa fa-github-square"></i> GitHub</button></li>
+                <li><span class="tooltiptext">income:0$ , exp:40</span> <button type="button " data-time="7" data-experience="40" data-type="music"  data-income="0" data-reputation="50" class="btn btn-outline-info" name="button"><i class="fa fa-stack-overflow"></i> Forum</button></li>
+                <li><span class="tooltiptext">incincome0$ , exp:30</span> <button type="button " data-time="4" data-experience="30" data-type="design" data-income="0" data-reputation="10" class="btn btn-outline-info" name="button"><i class="fa fa-comments-o"></i> Local Event</button></li>
+              </ul></li>
+        </ul>
+      </div>
+      <div class="col-lg-4 col-sm-6 col-xs-12 box" id="achievements" >
+        <h2>Achievements</h2>
+
+
+      </div>
+      <div class="col-lg-4 col-sm-6 col-xs-12 box" id="shop">
+        <h2>Shop</h2>
+          <i data-object="cloud" data-price="70" data-trigger='manual' class="fa fa-cloud"><a href="#" data-toggle="tooltip" title="Not enogh money"></a></i>
+          <i data-object="copmuter" data-price="150" data-trigger='manual' class="fa fa-tv"><a href="#" data-toggle="tooltip" title="Not enogh money"></a></i>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container popUp" id="achievements-popUp">
+    <h3>Achievement Unlocked</h3>
+    <h2>Git</h2>
+    <p></p>
+    <!-- You've discovered source control software. -->
+    <form method="post">
+    <input  type="submit" value="OK" >
+  </form>
+  </div>
+
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/scripts.js"></script>
+</body>
+</html>
