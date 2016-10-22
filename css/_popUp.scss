@@ -1,6 +1,14 @@
 @import 'variables';
 @import 'mixins';
 
+#achievements-popUp{
+  p{
+    display: inline-block;
+    left:0px;
+  }
+
+}
+
 div.popUp{
   border: 3px solid darken($primary, 10%);
   background-color: lighten($primary, 15%);

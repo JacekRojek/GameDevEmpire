@@ -1,6 +1,5 @@
-
-
 $(function() {
+
     //hiding buttons on the list
     $('#buttons ul.options').hide();
 
@@ -96,25 +95,23 @@ $(function() {
             $('#profile').find('#money_span').html(player.money);
             icon.hide("slow");
         };
-    } );
-    $('#shop').find('i').mouseleave(
-      function(){
+    });
+    $('#shop').find('i').mouseleave(function() {
         $(this).find('a').tooltip("hide");
-      }
-    );
-//End of document selector
+    });
+    //End of document selector
 });
 
 //button timer
 function timer($div, time, result) {
-$div.show().width("100%");
-$div.animate({
-    width: 0
-}, time * 1000, function() {
-    $div.parent().prop('disabled', false);
-    $div.hide();
-    result();
-});
+    $div.show().width("100%");
+    $div.animate({
+        width: 0
+    }, time * 1000, function() {
+        $div.parent().prop('disabled', false);
+        $div.hide();
+        result();
+    });
 }
 
 //achievements
@@ -122,141 +119,179 @@ let achievements_popUp = $('#achievements-popUp');
 let achievements_panel = $('#achievements');
 
 let achievements = new Map([
-[
-    'GitHub', 'github'
-],
-[
-    'Linux', 'linux'
-],
-[
-    '200$', 'money'
-],
-[
-    'Clicker', 'bolt'
-],
-['PhotoShop', 'photo']
+    [
+        'GitHub', 'github'
+    ],
+    [
+        'Linux', 'linux'
+    ],
+    [
+        '200$', 'money'
+    ],
+    [
+        'Clicker', 'bolt'
+    ],
+    ['PhotoShop', 'photo']
 ]);
 
 function unlockAchievement(name) {
-//Display Popup
+    //Display Popup
 
-let iconCode = achievements.get(name);
-achievements_popUp.find('h2').html(name);
-let icon = $('<i />', {
-    "class": "fa fa-" + iconCode
-});
-console.log(icon);
-achievements_popUp.prepend(icon);
-achievements_popUp.show();
-//TODO Add achievement to the list
+    let iconCode = achievements.get(name);
+    achievements_popUp.find('h2').html(name);
+    let icon = $('<i />', {
+        "class": "fa fa-" + iconCode
+    });
+    console.log(icon);
+    achievements_popUp.prepend(icon);
+    achievements_popUp.show();
+    //TODO Add achievement to the list
 
 }
+function unlockAchievementUsingClass(name){
+  let achievementObject = achievementsFromFunction.get(name);
+  achievements_popUp.find('h2').html(achievementObject.name);
+  achievements_popUp.find('p').html(achievementObject.description);
+  let icon = $('<i />', {
+      "class": "fa fa-" + achievementObject.icon
+  });
+  console.log(icon);
+  achievements_popUp.prepend(icon);
+  achievements_popUp.show();
+}
+
 
 //Player class
 class Player {
 
-constructor(name) {
-    this.name = name || "Player";
-    this.experience = 0;
-    this.level = 1;
-    this.money = 100;
-    this.reputation = 0;
+    constructor(name) {
+        this.name = name || "Player";
+        this.experience = 0;
+        this.level = 1;
+        this.money = 100;
+        this.reputation = 0;
 
-    //skills
-    this.coding = 0;
-    this.art = 0;
-    this.music = 0;
-    this.design = 0;
+        //skills
+        this.coding = 0;
+        this.art = 0;
+        this.music = 0;
+        this.design = 0;
 
-    this.clickCounter = 0;
-}
+        this.clickCounter = 0;
+    }
 
-addExperience(exp) {
-    let bar = $("#experience_bar");
-    let maxValue = bar.attr('aria-valuemax');
-    this.experience += exp;
-    if (this.experience >= 100 + this.level * 10 + this.level * this.level * 5) {
-        this.experience -= 100 + this.level * 10 + this.level * this.level * 5;
-        this.level++;
-        $('#level_span').html(this.level);
-        //TODO levelUP animation
-        maxValue = 100 + this.level * 10 + this.level * this.level * 5;
-        bar.attr('aria-valuemax', maxValue);
-        if (this.level == 2) {
-            unlockAchievement('GitHub');
-        } else if (this.level == 3) {
-            unlockAchievement('Linux');
+    addExperience(exp) {
+        let bar = $("#experience_bar");
+        let maxValue = bar.attr('aria-valuemax');
+        this.experience += exp;
+        if (this.experience >= 100 + this.level * 10 + this.level * this.level * 5) {
+            this.experience -= 100 + this.level * 10 + this.level * this.level * 5;
+            this.level++;
+            $('#level_span').html(this.level);
+            //TODO levelUP animation
+            maxValue = 100 + this.level * 10 + this.level * this.level * 5;
+            bar.attr('aria-valuemax', maxValue);
+            if (this.level == 2) {
+                unlockAchievementUsingClass('GitHub');
+            } else if (this.level == 3) {
+                unlockAchievement('Linux');
+            }
         }
+        let width = this.experience / maxValue * 100;
+        bar.css('width', width + '%').attr('aria-valuenow', this.experience);
+    };
+
+    addReputation(amount) {
+        this.reputation += amount;
+        $('#profile').find('#reputation_span').html(this.reputation);
     }
-    let width = this.experience / maxValue * 100;
-    bar.css('width', width + '%').attr('aria-valuenow', this.experience);
-};
 
-addReputation(amount) {
-    this.reputation += amount;
-    $('#profile').find('#reputation_span').html(this.reputation);
-}
+    addSkillPoints(amount, type) {
+        let bar = $("#" + type);
+        let maxValueForSkill = 100;
+        let unlocked = false;
+        switch (type) {
+            case "coding":
+                this.coding += amount;
 
-addSkillPoints(amount, type) {
-    let bar = $("#" + type);
-    let maxValueForSkill = 100;
-    let unlocked = false;
-    switch (type) {
-        case "coding":
-            this.coding += amount;
-            console.log(this.coding);
-            if (this.coding >= maxValueForSkill) {
-                this.coding -= maxValueForSkill;
-                this.addExperience(15);
+                if (this.coding >= maxValueForSkill) {
+                    this.coding -= maxValueForSkill;
+                    this.addExperience(15);
 
-            }
-
-            let width = this.coding / maxValueForSkill * 100;
-            console.log(width);
-            bar.css('width', width + '%').attr('aria-valuenow', this.coding);
-            break;
-
-        case "art":
-            this.art += amount;
-            if (this.art >= maxValueForSkill) {
-                this.art -= maxValueForSkill;
-                this.addExperience(15);
-                if (!unlocked) {
-                    unlockAchievement('PhotoShop');
-                    unlocked = true;
                 }
-            }
-            let width2 = this.art / maxValueForSkill * 100;
-            bar.css('width', width2 + '%').attr('aria-valuenow', this.art);
-            break;
 
-        case "music":
-            this.music += amount;
-            if (this.music >= maxValueForSkill) {
-                this.music -= maxValueForSkill;
-                this.addExperience(15);
-            }
-            let width3 = this.music / maxValueForSkill * 100;
-            bar.css('width', width3 + '%').attr('aria-valuenow', this.music);
-            break;
+                let width = this.coding / maxValueForSkill * 100;
 
-        case "design":
-            this.design += amount;
-            if (this.design >= maxValueForSkill) {
-                this.design -= maxValueForSkill;
-                this.addExperience(15);
-            }
-            let width4 = this.design / maxValueForSkill * 100;
-            bar.css('width', width4 + '%').attr('aria-valuenow', this.design);
-            break;
-        default:
+                bar.css('width', width + '%').attr('aria-valuenow', this.coding);
+                break;
 
-            break;
+            case "art":
+                this.art += amount;
+                if (this.art >= maxValueForSkill) {
+                    this.art -= maxValueForSkill;
+                    this.addExperience(15);
+                    if (!unlocked) {
+                        unlockAchievement('PhotoShop');
+                        unlocked = true;
+                    }
+                }
+                let width2 = this.art / maxValueForSkill * 100;
+                bar.css('width', width2 + '%').attr('aria-valuenow', this.art);
+                break;
+
+            case "music":
+                this.music += amount;
+                if (this.music >= maxValueForSkill) {
+                    this.music -= maxValueForSkill;
+                    this.addExperience(15);
+                }
+                let width3 = this.music / maxValueForSkill * 100;
+                bar.css('width', width3 + '%').attr('aria-valuenow', this.music);
+                break;
+
+            case "design":
+                this.design += amount;
+                if (this.design >= maxValueForSkill) {
+                    this.design -= maxValueForSkill;
+                    this.addExperience(15);
+                }
+                let width4 = this.design / maxValueForSkill * 100;
+                bar.css('width', width4 + '%').attr('aria-valuenow', this.design);
+                break;
+            default:
+
+                break;
+        }
+    };
+
+    set newName(newName) {
+        this.name = newName;
     }
-};
+}
 
-set newName(newName) {
-    this.name = newName;
-}
-}
 let player = new Player();
+
+class Achievement {
+  constructor(name, icon, description, reward) {
+  		this._name = name;
+  		this._icon = icon;
+  		this._description = description;
+      this._reward = reward;
+  	}
+    get name() { return this._name; }
+  	get icon() { return this._icon; }
+  	get description() { return this._description; }
+	  get reward() { return this._reward; }
+
+    reward(){
+      this._reward();
+    }
+
+}
+
+let achievementsFromFunction = createDatabaseMap();
+function createDatabaseMap(){
+  let achievements = new Map();
+  achievements.set('GitHub', new Achievement("GitHub","github","You've discovered source control software.",player.addReputation(100)));
+  return achievements;
+}
