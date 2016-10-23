@@ -34,7 +34,7 @@ $(function() {
         //Temp counting clicks
         player.clickCounter++;
         if (player.clickCounter == 10) {
-            unlockAchievement('Clicker');
+            unlockAchievementUsingClass('Clicker');
         }
 
         //waiting animation callback function
@@ -49,6 +49,7 @@ $(function() {
             let income = thisButton.data("income");
             if (income) {
                 player.money += income;
+                if(player.money > 200) {unlockAchievementUsingClass('$200');}
                 $('#profile').find('#money_span').html(player.money);
             }
         };
@@ -114,60 +115,18 @@ function timer($div, time, result) {
     });
 }
 
-//achievements
-let achievements_popUp = $('#achievements-popUp');
-let achievements_panel = $('#achievements');
-
-let achievements = new Map([
-    [
-        'GitHub', 'github'
-    ],
-    [
-        'Linux', 'linux'
-    ],
-    [
-        '200$', 'money'
-    ],
-    [
-        'Clicker', 'bolt'
-    ],
-    ['PhotoShop', 'photo']
-]);
-
-function unlockAchievement(name) {
-    //Display Popup
-
-    let iconCode = achievements.get(name);
-    achievements_popUp.find('h2').html(name);
-    let icon = $('<i />', {
-        "class": "fa fa-" + iconCode
-    });
-    console.log(icon);
-    achievements_popUp.prepend(icon);
-    achievements_popUp.show();
-    //TODO Add achievement to the list
-
-}
-function unlockAchievementUsingClass(name){
-  let achievementObject = achievementsFromFunction.get(name);
-  achievements_popUp.find('h2').html(achievementObject.name);
-  achievements_popUp.find('p').html(achievementObject.description);
-  let icon = $('<i />', {
-      "class": "fa fa-" + achievementObject.icon
-  });
-  console.log(icon);
-  achievements_popUp.prepend(icon);
-  achievements_popUp.show();
-}
 
 
-//Player class
+
+//--------------------------------------------------------------------------------------------------------------
+
+//Player section
 class Player {
 
     constructor(name) {
         this.name = name || "Player";
         this.experience = 0;
-        this.level = 1;
+        this.level = 0;
         this.money = 100;
         this.reputation = 0;
 
@@ -194,7 +153,7 @@ class Player {
             if (this.level == 2) {
                 unlockAchievementUsingClass('GitHub');
             } else if (this.level == 3) {
-                unlockAchievement('Linux');
+                unlockAchievementUsingClass('Linux');
             }
         }
         let width = this.experience / maxValue * 100;
@@ -231,7 +190,7 @@ class Player {
                     this.art -= maxValueForSkill;
                     this.addExperience(15);
                     if (!unlocked) {
-                        unlockAchievement('PhotoShop');
+                        unlockAchievementUsingClass('Photoshop');
                         unlocked = true;
                     }
                 }
@@ -270,7 +229,11 @@ class Player {
 }
 
 let player = new Player();
+//End of Player Section
 
+//--------------------------------------------------------------------------------------------------------------
+
+//Achievement Section
 class Achievement {
   constructor(name, icon, description, reward) {
   		this._name = name;
@@ -292,6 +255,30 @@ class Achievement {
 let achievementsFromFunction = createDatabaseMap();
 function createDatabaseMap(){
   let achievements = new Map();
-  achievements.set('GitHub', new Achievement("GitHub","github","You've discovered source control software.",player.addReputation(100)));
+  achievements.set('GitHub', new Achievement("GitHub","github","You've discovered source control software. Repotation incrises",function(){ return player.addReputation(57)} ));
+  achievements.set('Linux', new Achievement("Linux","linux","You've discovered new operating system. Repotation incrises",function(){ return player.addReputation(17)} ));
+  achievements.set('200$', new Achievement("First Money","money","You've saved some money. Repotation incrises ",function(){ return player.addReputation(107)} ));
+  achievements.set('Clicker', new Achievement("Clicker","bolt","You are in the flow. Repotation incrises ",function(){ return player.addReputation(107)} ));
+  achievements.set('Photoshop', new Achievement("Photoshop","photo","You've started earning money. Repotation incrises ",function(){ return player.addReputation(107)} ));
   return achievements;
 }
+
+let achievements_popUp = $('#achievements-popUp');
+let achievements_panel = $('#achievements');
+
+function unlockAchievementUsingClass(name){
+  let achievementObject = achievementsFromFunction.get(name);
+  achievements_popUp.find('h2').html(achievementObject.name);
+  achievements_popUp.find('p').html(achievementObject.description);
+  let icon = $('<i />', {
+      "class": "fa fa-" + achievementObject.icon
+  });
+  console.log(icon);
+  achievements_popUp.prepend(icon);
+  achievements_popUp.show();
+  achievementObject.reward();
+}
+//End of Achievement Section
+
+
+//--------------------------------------------------------------------------------------------------------------

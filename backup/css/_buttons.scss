@@ -1,14 +1,13 @@
 @import 'variables';
 
-
 .options
 span.tooltiptext{
   position: relative;
   top:0px;
 }
-.options p{
+p{
   position: absolute;
-    left: -20px;
+    left: -10px;
     font-size: 1.3em;
     text-align: center;
     display: none;
@@ -18,7 +17,7 @@ span.tooltiptext{
 button.btn-outline-info{
   box-shadow: 0 3px 0 0 $shadow;
   background-color:$primary;
-  width: 260px;
+  min-width: 260px;
   font-size: 2em;
   padding:{
     top:5px;
@@ -40,7 +39,7 @@ button.btn-outline-info{
   }
   @media screen and (max-width: $break-small) {
   font-size: 1em;
-  width: 160px;
+  min-width: 160px;
   }
 
   div{
@@ -51,8 +50,4 @@ button.btn-outline-info{
     width: 100%;
     background-color: #0099ff;
   }
-}
-
-#buttons{
-  padding-left: 0px;
 }
